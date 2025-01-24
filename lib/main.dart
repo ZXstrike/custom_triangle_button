@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
                       buttonTextColor: Colors.white,
                       shadowOffset: Offset(0, 0),
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       texSize: 20,
                       onTap: () {
                         debugPrint('Top button tapped');
@@ -47,7 +47,7 @@ class MainApp extends StatelessWidget {
                       buttonTextColor: Colors.white,
                       shadowOffset: Offset(0, 0),
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       texSize: 20,
                       onTap: () {
                         debugPrint('Bottom button tapped');
@@ -64,7 +64,7 @@ class MainApp extends StatelessWidget {
                       buttonTextColor: Colors.white,
                       shadowOffset: Offset(0, 0),
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       texSize: 20,
                       onTap: () {
                         debugPrint('Left button tapped');
@@ -81,7 +81,7 @@ class MainApp extends StatelessWidget {
                       buttonTextColor: Colors.white,
                       shadowOffset: Offset(0, 0),
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       texSize: 20,
                       onTap: () {
                         debugPrint('Right button tapped');
@@ -110,7 +110,7 @@ class MainApp extends StatelessWidget {
                       shadowOffset: Offset(4, 3.5),
                       shadowRadius: 2,
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       child: Icon(Icons.arrow_upward),
                       onTap: () {
                         debugPrint('Top button tapped');
@@ -130,7 +130,7 @@ class MainApp extends StatelessWidget {
                       shadowOffset: Offset(4, 3.5),
                       shadowRadius: 2,
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       child: Icon(Icons.arrow_downward),
                       onTap: () {
                         debugPrint('Bottom button tapped');
@@ -150,7 +150,7 @@ class MainApp extends StatelessWidget {
                       shadowOffset: Offset(4, 3.5),
                       shadowRadius: 2,
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       child: Icon(Icons.arrow_back),
                       onTap: () {
                         debugPrint('Left button tapped');
@@ -170,7 +170,7 @@ class MainApp extends StatelessWidget {
                       shadowOffset: Offset(4, 3.5),
                       shadowRadius: 2,
                       size: 100,
-                      cornerRadius: 10,
+                      pointRounding: 0.5,
                       child: Icon(Icons.arrow_forward),
                       onTap: () {
                         debugPrint('Right button tapped');

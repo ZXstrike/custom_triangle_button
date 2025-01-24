@@ -4,87 +4,6 @@ import 'package:flutter/semantics.dart';
 
 part 'triangle_painter.dart';
 
-/// An equilateral triangular button widget with a child widget and text.
-/// The button can be customized with the following parameters:
-/// - [child]: The child widget to be displayed inside the button.
-/// - [direction]: The direction of the triangle.
-/// - [text]: The text to be displayed inside the button.
-/// - [buttonColor]: The color of the button.
-/// - [buttonTextColor]: The color of the text.
-/// - [buttonBorderColor]: The color of the border.
-/// - [buttonShadowColor]: The color of the shadow.
-/// - [shadowOffset]: The offset of the shadow.
-/// - [size]: The size of the button.
-/// - [cornerRadius]: The corner radius of the button.
-/// - [shadowRadius]: The radius of the shadow.
-/// - [shadowBlur]: The blur of the shadow.
-/// - [texSize]: The size of the text.
-/// - [padding]: The padding of the button.
-/// - [margin]: The margin of the button.
-/// - [alignment]: The alignment of the child widget.
-/// - [onTap]: The callback function for tap events.
-/// - [onDoubleTap]: The callback function for double tap events.
-/// - [onTapCancel]: The callback function for tap cancel events.
-/// - [onDoubleTapCancel]: The callback function for double tap cancel events.
-/// - [onTapDown]: The callback function for tap down events.
-/// - [onDoubleTapDown]: The callback function for double tap down events.
-/// - [onTapUp]: The callback function for tap up events.
-/// - [onDoubleTapUp]: The callback function for double tap up events.
-///
-/// Example:
-/// ```dart
-/// TriangleButtonWidget(
-///  child: Icon(Icons.add),
-/// direction: TriangleDirection.right,
-/// text: 'Add',
-/// buttonColor: Colors.blue,
-/// buttonTextColor: Colors.white,
-/// buttonBorderColor: Colors.black,
-/// buttonShadowColor: Colors.grey,
-/// shadowOffset: Offset(2, 2),
-/// size: 50,
-/// cornerRadius: 10,
-/// texSize: 20,
-/// padding: EdgeInsets.all(10),
-/// margin: EdgeInsets.all(10),
-/// alignment: Alignment.center,
-/// onTap: () {
-///  print('Button tapped');
-/// },
-/// onDoubleTap: () {
-/// print('Button double tapped');
-/// },
-/// onTapCancel: () {
-/// print('Button tap canceled');
-/// },
-/// onDoubleTapCancel: () {
-/// print('Button double tap canceled');
-/// },
-/// onTapDown: (details) {
-/// print('Button tap down');
-/// },
-/// onDoubleTapDown: (details) {
-/// print('Button double tap down');
-/// },
-/// onTapUp: (details) {
-/// print('Button tap up');
-/// },
-/// onDoubleTapUp: (details) {
-/// print('Button double tap up');
-/// },
-/// )
-/// ```
-///
-/// This will create a triangular button with an icon and text that can be tapped or double tapped.
-/// The button will have a blue color with white text, black border, and grey shadow.
-/// The button will have a size of 50, a corner radius of 10, and a text size of 20.
-/// The button will have padding and margin of 10 and will align the child widget to the center.
-/// The button will print messages when tapped or double tapped.
-///
-/// See also:
-/// - [TriangleDirection], an enum for the direction of the triangle.
-/// - [TrianglePainter], a custom painter to draw the triangular button.
-
 class TriangleButtonWidget extends StatefulWidget {
   const TriangleButtonWidget({
     super.key,
@@ -97,7 +16,7 @@ class TriangleButtonWidget extends StatefulWidget {
     this.buttonShadowColor = Colors.transparent,
     this.shadowOffset = Offset.zero,
     this.size = 30.0,
-    this.cornerRadius = 0.0,
+    this.pointRounding = 0.0,
     this.texSize = 0.0,
     this.padding = EdgeInsets.zero,
     this.margin = EdgeInsets.zero,
@@ -110,7 +29,7 @@ class TriangleButtonWidget extends StatefulWidget {
     this.onDoubleTapDown,
     this.onTapUp,
     this.onDoubleTapUp,
-    this.shadowRadius = 0.0,
+    this.shadowRadius = 1.0,
     this.shadowBlur = 0.0,
   });
 
@@ -132,7 +51,7 @@ class TriangleButtonWidget extends StatefulWidget {
   final Alignment alignment;
 
   final double size;
-  final double cornerRadius;
+  final double pointRounding;
   final double shadowRadius;
   final double shadowBlur;
   final double texSize;
@@ -164,36 +83,47 @@ class _TriangleButtonWidgetState extends State<TriangleButtonWidget> {
         onTapCancel: widget.onTapCancel,
         onTapDown: widget.onTapDown,
         onTapUp: widget.onTapUp,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomPaint(
-              size: Size(widget.size, widget.size),
-              painter: TrianglePainter(
-                direction: widget.direction,
-                buttonBorderColor: widget.buttonBorderColor,
-                buttonColor: widget.buttonColor,
-                buttonShadowColor: widget.buttonShadowColor,
-                buttonTextColor: widget.buttonTextColor,
-                cornerRadius: widget.cornerRadius,
-                shadowOffset: widget.shadowOffset,
-                shadowRadius: widget.shadowRadius,
-                shadowBlur: widget.shadowBlur,
-                texSize: widget.texSize,
-                text: widget.text,
-                triangleSize: widget.size,
+        child: Container(
+          width: widget.size,
+          height: widget.size,
+          alignment: widget.alignment,
+          margin: widget.margin,
+          padding: widget.padding,
+          decoration: ShapeDecoration(
+            color: widget.buttonColor,
+            shadows: [
+              BoxShadow(
+                color: widget.buttonShadowColor,
+                offset: widget.shadowOffset,
+                blurRadius: widget.shadowBlur,
+                spreadRadius: widget.shadowRadius,
               ),
+            ],
+            shape: StarBorder.polygon(
+              side: BorderSide(
+                width: 2,
+                color: widget.buttonBorderColor,
+              ),
+              sides: 3,
+              pointRounding: widget.pointRounding,
+              rotation: switch (widget.direction) {
+                TriangleDirection.left => 270,
+                TriangleDirection.right => 90,
+                TriangleDirection.up => 0,
+                TriangleDirection.down => 180,
+              },
             ),
-            if (widget.child != null)
-              Container(
-                width: widget.size,
-                height: widget.size,
-                alignment: widget.alignment,
-                margin: widget.margin,
-                padding: widget.padding,
-                child: widget.child!,
+          ),
+          child: widget.child ??
+              Text(
+                widget.text ?? '',
+                style: TextStyle(
+                  color: widget.buttonTextColor,
+                  fontSize: widget.texSize,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.none,
+                ),
               ),
-          ],
         ),
       ),
     );
