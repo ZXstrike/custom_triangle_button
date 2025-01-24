@@ -2,6 +2,8 @@
 
 A Flutter widget that creates customizable triangle-shaped buttons with various orientations and styling options.
 
+![Screenshot 2025-01-05 203008](https://github.com/user-attachments/assets/0ccbb6d5-2715-40c5-b65e-bfb55f66455b)
+
 ## Features
 - 🔺 Triangle buttons in 4 directions (up, down, left, right)
 - 🎨 Customizable colors, borders, and shadows
